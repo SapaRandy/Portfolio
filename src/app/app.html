@@ -1,3 +1,23 @@
-<main class="livre">
-  <router-outlet />
-</main>
+<div class="bureau">
+  <div class="livre" [class.derniere-page]="estDernierePage()">
+    <!-- Couverture rigide en cuir, avec le dos relié à gauche -->
+    <div class="couverture" aria-hidden="true"></div>
+
+    <!-- Tranche : les pages restantes, de moins en moins nombreuses -->
+    <div class="tranche" aria-hidden="true" [style.box-shadow]="tranche()"></div>
+
+    <!-- La feuille courante : c'est elle qui se tourne -->
+    <div class="feuille">
+      <header class="titre-courant">{{ titreCourant() }}</header>
+
+      <main class="contenu-feuille">
+        <router-outlet />
+      </main>
+
+      <footer class="folio">
+        <span class="folio-numero">{{ numeroDePage() }}</span>
+        <span class="folio-total">page {{ numeroDePage() }} sur {{ total }}</span>
+      </footer>
+    </div>
+  </div>
+</div>

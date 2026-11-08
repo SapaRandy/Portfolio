@@ -202,6 +202,42 @@ export class BookService {
     },
   ];
 
+  /**
+   * Ordre de lecture complet du livre, page par page :
+   * accueil, chapitres, et pages des projets insérées dans le chapitre III.
+   * Sert à numéroter les pages, à calculer l'épaisseur des pages restantes
+   * et à savoir dans quel sens tourner la page.
+   */
+  readonly ordreDeLecture: string[] = [
+    '/',
+    ...this.chapitres.flatMap((chapitre) => {
+      const page = `/chapitre/${chapitre.slug}`;
+      return chapitre.slug === 'projets'
+        ? [page, ...this.projets.map((projet) => `/projet/${projet.slug}`)]
+        : [page];
+    }),
+  ];
+
+  /** Position d'une URL dans l'ordre de lecture (0 = accueil). */
+  indexDeLecture(url: string): number {
+    const chemin = (url.split(/[?#]/)[0] || '/').replace(/\/+$/, '') || '/';
+    const index = this.ordreDeLecture.indexOf(chemin);
+    return index === -1 ? 0 : index;
+  }
+
+  /** Titre courant affiché en haut de page (titre courant d'un livre). */
+  titreCourant(url: string): string {
+    const chemin = this.ordreDeLecture[this.indexDeLecture(url)];
+    if (chemin === '/') {
+      return 'Randy Sapa · Portfolio';
+    }
+    const slug = chemin.startsWith('/projet/') ? 'projets' : chemin.split('/').pop()!;
+    const chapitre = this.chapitreParSlug(slug);
+    return chapitre
+      ? `Chapitre ${this.enChiffresRomains(chapitre.numero)} · ${chapitre.titre}`
+      : 'Randy Sapa · Portfolio';
+  }
+
   /** Retourne un chapitre à partir de son slug, ou undefined. */
   chapitreParSlug(slug: string): Chapitre | undefined {
     return this.chapitres.find((chapitre) => chapitre.slug === slug);

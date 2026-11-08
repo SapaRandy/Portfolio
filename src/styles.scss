@@ -1,25 +1,39 @@
 /* ============================================================
    Portfolio-livre — styles globaux
-   Ambiance « livre papier » : crème, encre, accent brique.
+   Un livre relié posé sur un bureau : couverture en cuir,
+   papier crème, tranche des pages restantes, page qui se tourne.
    ============================================================ */
 
 :root {
-  --papier: #faf6ea;
-  --papier-fonce: #f1ead7;
+  /* Papier et encre */
+  --papier: #faf5e6;
+  --papier-fonce: #f1e9d3;
   --encre: #2b2620;
-  --encre-douce: #6f6553;
-  --accent: #a34a2a;
+  --encre-douce: #6a5f4c;
+  --accent: #9c4326;
   --bordure: #d8cbb0;
-  --fond-ecran: #262019;
+
+  /* Reliure */
+  --cuir: #5c1f17;
+  --cuir-clair: #7a2e22;
+  --cuir-fonce: #3a120d;
+  --dorure: #c9a45c;
+
+  /* Tranche (pages restantes) */
+  --tranche-claire: #f3ead2;
+  --tranche-foncee: #cdbd98;
+  --pas-feuillet: 1.15px;
+  --tranche-max: 32px; /* épaisseur à la première page */
+
+  /* Bureau */
+  --bureau: #1f1914;
+
   --serif: Georgia, 'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', serif;
+  --duree-page: 0.95s;
 }
 
 * {
   box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
 }
 
 body {
@@ -28,66 +42,252 @@ body {
   font-family: var(--serif);
   color: var(--encre);
   background:
-    radial-gradient(ellipse at 20% 0%, #33291e 0%, transparent 55%),
-    radial-gradient(ellipse at 85% 100%, #1d1813 0%, transparent 60%),
-    var(--fond-ecran);
-  padding: 2.25rem 1rem 3.5rem;
+    radial-gradient(ellipse at 50% 18%, rgba(255, 214, 150, 0.12) 0%, transparent 55%),
+    repeating-linear-gradient(
+      96deg,
+      rgba(255, 255, 255, 0.015) 0 2px,
+      rgba(0, 0, 0, 0.03) 2px 5px
+    ),
+    linear-gradient(180deg, #2a221b 0%, var(--bureau) 100%);
+  overflow-x: hidden;
 }
 
-/* ---- Le livre lui-même : la page de papier posée sur l'écran ---- */
+/* ---- Le bureau : centre le livre et lui laisse la place de sa couverture ---- */
+.bureau {
+  padding: 3rem 1.25rem 4.5rem;
+  padding-right: calc(1.25rem + var(--tranche-max));
+}
+
+/* ---- Le livre ---- */
 .livre {
+  position: relative;
   max-width: 860px;
   margin: 0 auto;
-  background: var(--papier);
-  border-radius: 8px 16px 16px 8px;
-  box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.4),
-    0 18px 45px rgba(0, 0, 0, 0.55);
-  position: relative;
-  overflow: hidden;
-  animation: ouverture 0.6s ease both;
 }
 
-/* Tranche de reliure à gauche */
-.livre::before {
+/* Couverture rigide : dépasse autour des pages, dos relié à gauche */
+.couverture {
+  position: absolute;
+  top: -14px;
+  bottom: calc(-14px - var(--tranche-max));
+  left: -26px;
+  right: calc(-14px - var(--tranche-max));
+  border-radius: 6px 14px 14px 6px;
+  background:
+    /* dos de la reliure */
+    linear-gradient(
+      90deg,
+      var(--cuir-fonce) 0,
+      var(--cuir-clair) 9px,
+      var(--cuir-fonce) 20px,
+      transparent 30px
+    ),
+    /* grain du cuir */
+    radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.06) 0, transparent 40%),
+    radial-gradient(circle at 80% 90%, rgba(0, 0, 0, 0.25) 0, transparent 50%),
+    var(--cuir);
+  box-shadow:
+    0 2px 0 rgba(255, 255, 255, 0.04) inset,
+    0 30px 60px rgba(0, 0, 0, 0.6),
+    0 8px 18px rgba(0, 0, 0, 0.45);
+}
+
+/* Filet doré le long du dos */
+.couverture::after {
   content: '';
   position: absolute;
-  inset: 0 auto 0 0;
-  width: 14px;
-  background: linear-gradient(
-    to right,
-    #d9c9a3 0%,
-    #efe4c4 40%,
-    rgba(255, 255, 255, 0.35) 85%,
-    transparent 100%
-  );
-  pointer-events: none;
+  top: 10px;
+  bottom: 10px;
+  left: 11px;
+  border-left: 1px dashed rgba(201, 164, 92, 0.55);
 }
 
-@keyframes ouverture {
-  from {
-    opacity: 0;
-    transform: translateY(14px) rotate(-0.4deg);
+/* Tranche : un bloc de papier sous la feuille, dont l'ombre dessine les pages */
+.tranche {
+  position: absolute;
+  inset: 0;
+  border-radius: 2px 6px 6px 2px;
+  background: var(--tranche-claire);
+  transition: box-shadow 0.8s ease;
+}
+
+/* ---- La feuille courante ---- */
+.feuille {
+  position: relative;
+  z-index: 1;
+  min-height: 78vh;
+  display: flex;
+  flex-direction: column;
+  border-radius: 2px 6px 6px 2px;
+  background-color: var(--papier);
+  background-image:
+    /* ombre de la reliure (gouttière) */
+    linear-gradient(
+      90deg,
+      rgba(60, 40, 20, 0.28) 0,
+      rgba(60, 40, 20, 0.1) 18px,
+      rgba(60, 40, 20, 0) 60px
+    ),
+    /* jaunissement léger sur les bords */
+    radial-gradient(ellipse at 50% 45%, transparent 60%, rgba(160, 120, 60, 0.12) 100%),
+    /* grain du papier */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.4 0 0 0 0 0.3 0 0 0 0 0.2 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  box-shadow: 0 0 0 1px rgba(120, 95, 60, 0.18);
+  /* C'est cet élément que la View Transitions API capture et fait tourner. */
+  view-transition-name: feuille;
+}
+
+/* Titre courant, en haut de chaque page */
+.titre-courant {
+  padding: 1.4rem 3.25rem 0;
+  text-align: center;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--encre-douce);
+  opacity: 0.8;
+}
+
+.contenu-feuille {
+  flex: 1;
+}
+
+/* Numéro de page, en bas */
+.folio {
+  padding: 0 3.25rem 1.5rem;
+  text-align: center;
+  color: var(--encre-douce);
+}
+
+.folio-numero {
+  font-size: 0.95rem;
+  font-style: italic;
+}
+
+.folio-numero::before,
+.folio-numero::after {
+  content: ' — ';
+  color: var(--bordure);
+}
+
+.folio-total {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+/* ============================================================
+   Animation « page qui se tourne » (View Transitions API)
+   ============================================================ */
+
+/* Le reste de l'écran ne bouge pas : seule la feuille se tourne. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+
+::view-transition-group(feuille) {
+  animation: none;
+}
+
+::view-transition-image-pair(feuille) {
+  perspective: 2600px;
+  isolation: auto;
+}
+
+::view-transition-old(feuille),
+::view-transition-new(feuille) {
+  animation: none;
+  mix-blend-mode: normal;
+  transform-origin: left center;
+}
+
+/* On avance : l'ancienne page se soulève et part vers la gauche,
+   révélant la nouvelle page déjà en place dessous. */
+html[data-sens='avant']::view-transition-old(feuille) {
+  z-index: 2;
+  animation: page-part var(--duree-page) cubic-bezier(0.45, 0.05, 0.3, 1) both;
+}
+
+html[data-sens='avant']::view-transition-new(feuille) {
+  z-index: 1;
+  animation: page-revelee var(--duree-page) ease both;
+}
+
+/* On recule : la page précédente revient de la gauche et se repose. */
+html[data-sens='arriere']::view-transition-new(feuille) {
+  z-index: 2;
+  animation: page-revient var(--duree-page) cubic-bezier(0.45, 0.05, 0.3, 1) both;
+}
+
+html[data-sens='arriere']::view-transition-old(feuille) {
+  z-index: 1;
+  animation: page-recouverte var(--duree-page) ease both;
+}
+
+/* Recto visible jusqu'à 90°, puis verso (papier uni) jusqu'à 180°. */
+@keyframes page-part {
+  0% {
+    transform: rotateY(0deg);
+    filter: none;
   }
-  to {
+  49.9% {
+    filter: brightness(0.82);
+  }
+  50% {
+    transform: rotateY(-90deg);
+    filter: contrast(0) sepia(0.35) brightness(1.75);
+  }
+  85% {
     opacity: 1;
-    transform: none;
   }
-}
-
-/* Animation « tourner la page » sur chaque vue */
-router-outlet + * {
-  animation: tourner-page 0.45s ease both;
-}
-
-@keyframes tourner-page {
-  from {
+  100% {
+    transform: rotateY(-180deg);
+    filter: contrast(0) sepia(0.35) brightness(1.85);
     opacity: 0;
-    transform: translateX(26px);
   }
-  to {
+}
+
+@keyframes page-revient {
+  0% {
+    transform: rotateY(-180deg);
+    filter: contrast(0) sepia(0.35) brightness(1.85);
+    opacity: 0;
+  }
+  15% {
     opacity: 1;
-    transform: none;
+  }
+  49.9% {
+    filter: contrast(0) sepia(0.35) brightness(1.75);
+  }
+  50% {
+    transform: rotateY(-90deg);
+    filter: brightness(0.82);
+  }
+  100% {
+    transform: rotateY(0deg);
+    filter: none;
+  }
+}
+
+/* La page du dessous est dans l'ombre de la feuille qui passe au-dessus. */
+@keyframes page-revelee {
+  0% {
+    filter: brightness(0.78);
+  }
+  100% {
+    filter: none;
+  }
+}
+
+@keyframes page-recouverte {
+  0% {
+    filter: none;
+  }
+  100% {
+    filter: brightness(0.78);
   }
 }
 
@@ -134,10 +334,42 @@ router-outlet + * {
   color: var(--encre-douce);
 }
 
+/* ---- Petits écrans : livre plus fin ---- */
+@media (max-width: 640px) {
+  :root {
+    --pas-feuillet: 0.6px;
+    --tranche-max: 17px;
+  }
+
+  .bureau {
+    padding: 1.5rem 0.9rem 3rem 1.6rem;
+    padding-right: calc(0.9rem + var(--tranche-max));
+  }
+
+  .couverture {
+    left: -14px;
+    top: -9px;
+    bottom: calc(-9px - var(--tranche-max));
+    right: calc(-9px - var(--tranche-max));
+  }
+
+  .titre-courant,
+  .folio {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .titre-courant {
+    font-size: 0.62rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
-  *::after {
+  *::after,
+  ::view-transition-old(feuille),
+  ::view-transition-new(feuille) {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }

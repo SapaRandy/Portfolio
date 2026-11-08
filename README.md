@@ -15,6 +15,18 @@ avec une navigation « précédent / accueil / suivant » en bas de chaque page.
 | IV. Mes loisirs | `/chapitre/loisirs` | Sport, jeux vidéo, analyse sportive... |
 | V. Contact | `/chapitre/contact` | E-mail, GitHub, LinkedIn |
 
+## Effets « livre »
+
+- **Reliure** : couverture en cuir, dos relié, papier crème avec ombre de gouttière,
+  titre courant en haut de page et numéro de page en bas.
+- **Tranche des pages restantes** : à droite et en bas, l'épaisseur des pages diminue à
+  chaque page lue. Elle est maximale sur le sommaire et disparaît sur la dernière page
+  (Contact). L'ordre de lecture est défini par `ordreDeLecture` dans `BookService`.
+- **Page qui se tourne** : à chaque navigation, la page se tourne vers la gauche quand on
+  avance, et revient de la gauche quand on recule (`src/app/page-turn.ts` + View
+  Transitions API, styles dans `src/styles.scss`). Si le navigateur ne gère pas cette API
+  ou si l'utilisateur a demandé à réduire les animations, la page change simplement sans effet.
+
 ## Commandes
 
 ```bash
@@ -31,6 +43,7 @@ npm run serve:ssr:Portfolio    # sert le build SSR sur http://localhost:4000
 src/app/
 ├── app.routes.ts              # routes du livre
 ├── app.routes.server.ts       # prérendu (dont une page par projet)
+├── page-turn.ts               # sens de l'animation de page (avant / arrière)
 ├── models/book.ts             # types Chapitre et Projet
 ├── services/book.service.ts   # LE CONTENU DU LIVRE (chapitres + projets)
 ├── shared/chapter-shell/      # gabarit commun : en-tête + navigation page à page
