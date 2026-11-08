@@ -1,1 +1,144 @@
-/* You can add global styles to this file, and also import other style files */
+/* ============================================================
+   Portfolio-livre — styles globaux
+   Ambiance « livre papier » : crème, encre, accent brique.
+   ============================================================ */
+
+:root {
+  --papier: #faf6ea;
+  --papier-fonce: #f1ead7;
+  --encre: #2b2620;
+  --encre-douce: #6f6553;
+  --accent: #a34a2a;
+  --bordure: #d8cbb0;
+  --fond-ecran: #262019;
+  --serif: Georgia, 'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--serif);
+  color: var(--encre);
+  background:
+    radial-gradient(ellipse at 20% 0%, #33291e 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 100%, #1d1813 0%, transparent 60%),
+    var(--fond-ecran);
+  padding: 2.25rem 1rem 3.5rem;
+}
+
+/* ---- Le livre lui-même : la page de papier posée sur l'écran ---- */
+.livre {
+  max-width: 860px;
+  margin: 0 auto;
+  background: var(--papier);
+  border-radius: 8px 16px 16px 8px;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.4),
+    0 18px 45px rgba(0, 0, 0, 0.55);
+  position: relative;
+  overflow: hidden;
+  animation: ouverture 0.6s ease both;
+}
+
+/* Tranche de reliure à gauche */
+.livre::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 14px;
+  background: linear-gradient(
+    to right,
+    #d9c9a3 0%,
+    #efe4c4 40%,
+    rgba(255, 255, 255, 0.35) 85%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+@keyframes ouverture {
+  from {
+    opacity: 0;
+    transform: translateY(14px) rotate(-0.4deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Animation « tourner la page » sur chaque vue */
+router-outlet + * {
+  animation: tourner-page 0.45s ease both;
+}
+
+@keyframes tourner-page {
+  from {
+    opacity: 0;
+    transform: translateX(26px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---- Éléments partagés entre les chapitres ---- */
+.etiquette {
+  display: inline-block;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 0.22rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid var(--bordure);
+  color: var(--encre-douce);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.etiquette.professionnel {
+  color: #7a4a12;
+  border-color: #d9b98a;
+  background: #f8eed9;
+}
+
+.etiquette.personnel {
+  color: #3d5a3a;
+  border-color: #b3c9ad;
+  background: #eef4ea;
+}
+
+.puces {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.puces li {
+  font-size: 0.82rem;
+  padding: 0.18rem 0.6rem;
+  border-radius: 6px;
+  background: var(--papier-fonce);
+  border: 1px solid var(--bordure);
+  color: var(--encre-douce);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

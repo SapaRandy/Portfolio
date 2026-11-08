@@ -1,0 +1,32 @@
+.cartes-loisirs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.carte-loisir {
+  padding: 1.25rem 1.35rem;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid var(--bordure);
+  border-radius: 10px;
+}
+
+.carte-loisir h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+  color: var(--accent);
+}
+
+.carte-loisir p {
+  margin: 0;
+  font-size: 0.94rem;
+  line-height: 1.6;
+  color: var(--encre);
+}
+
+@media (max-width: 640px) {
+  .cartes-loisirs {
+    grid-template-columns: 1fr;
+  }
+}

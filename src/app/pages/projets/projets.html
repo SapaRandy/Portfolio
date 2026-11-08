@@ -1,0 +1,25 @@
+<app-chapter-shell slug="projets">
+  <p>
+    Voici une sélection de projets, professionnels et personnels. Chacun a sa propre
+    page : cliquez sur un projet pour le découvrir en détail, puis naviguez de projet en
+    projet comme on feuillette un chapitre.
+  </p>
+
+  <div class="grille-projets">
+    @for (projet of projets; track projet.slug) {
+      <a [routerLink]="['/projet', projet.slug]" class="carte-projet">
+        <span class="etiquette" [class.professionnel]="projet.contexte === 'Professionnel'" [class.personnel]="projet.contexte === 'Personnel'">
+          {{ projet.contexte }}
+        </span>
+        <h3>{{ projet.titre }}</h3>
+        <p>{{ projet.accroche }}</p>
+        <ul class="puces">
+          @for (techno of projet.stack; track techno) {
+            <li>{{ techno }}</li>
+          }
+        </ul>
+        <span class="lire-projet">Lire le projet →</span>
+      </a>
+    }
+  </div>
+</app-chapter-shell>

@@ -1,0 +1,57 @@
+.moyens-contact {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.moyen-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  text-decoration: none;
+  padding: 1.1rem 1.2rem;
+  border: 1px solid var(--bordure);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--encre);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.moyen-contact:hover {
+  border-color: var(--accent);
+  box-shadow: 0 10px 24px rgba(43, 38, 32, 0.12);
+  transform: translateY(-3px);
+}
+
+.contact-etiquette {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+}
+
+.contact-valeur {
+  font-weight: 600;
+  font-size: 0.98rem;
+  word-break: break-all;
+}
+
+.mot-fin {
+  margin-top: 2rem;
+  font-style: italic;
+  color: var(--encre-douce);
+}
+
+.signature {
+  font-size: 1.6rem;
+  font-style: italic;
+  color: var(--accent);
+  margin: 0.25rem 0 0;
+}
+
+@media (max-width: 640px) {
+  .moyens-contact {
+    grid-template-columns: 1fr;
+  }
+}

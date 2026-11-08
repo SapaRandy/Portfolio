@@ -1,0 +1,146 @@
+.page-projet {
+  padding: 3.5rem 3.25rem 2.5rem;
+}
+
+.lien-retour {
+  display: inline-block;
+  font-size: 0.85rem;
+  color: var(--encre-douce);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+}
+
+.lien-retour:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.en-tete-projet h1 {
+  font-size: 2.1rem;
+  margin: 1rem 0 0.35rem;
+  line-height: 1.2;
+}
+
+.periode {
+  font-style: italic;
+  color: var(--encre-douce);
+  margin: 0 0 1rem;
+}
+
+.en-tete-projet .puces {
+  margin-bottom: 0.5rem;
+}
+
+.filet-decoratif {
+  width: 90px;
+  height: 3px;
+  margin: 1.75rem 0 2.25rem;
+  background: linear-gradient(to right, var(--accent), transparent);
+  border-radius: 2px;
+}
+
+.contenu-projet {
+  font-size: 1.02rem;
+  line-height: 1.75;
+}
+
+.contenu-projet h2 {
+  font-size: 1.4rem;
+  margin: 2.25rem 0 0.75rem;
+}
+
+.points-cles {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.points-cles li {
+  position: relative;
+  padding-left: 1.6rem;
+  margin-bottom: 0.55rem;
+}
+
+.points-cles li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* ---- Navigation entre projets ---- */
+.nav-projet {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0.75rem;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--bordure);
+}
+
+.nav-lien {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  text-decoration: none;
+  color: var(--encre);
+  padding: 0.6rem 0.85rem;
+  border-radius: 8px;
+  border: 1px solid var(--bordure);
+  background: rgba(255, 255, 255, 0.45);
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.nav-lien:hover {
+  border-color: var(--accent);
+  background: #fffdf6;
+  transform: translateY(-2px);
+}
+
+.nav-suivant {
+  text-align: right;
+}
+
+.nav-retour {
+  align-self: center;
+  text-align: center;
+}
+
+.nav-etiquette {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+}
+
+.nav-titre {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.nav-vide {
+  align-self: center;
+  font-style: italic;
+  color: var(--encre-douce);
+  font-size: 0.88rem;
+}
+
+.introuvable {
+  text-align: center;
+  padding-top: 5rem;
+}
+
+@media (max-width: 640px) {
+  .page-projet {
+    padding: 2.25rem 1.5rem 1.75rem;
+  }
+
+  .nav-projet {
+    grid-template-columns: 1fr;
+  }
+
+  .nav-suivant {
+    text-align: left;
+  }
+}

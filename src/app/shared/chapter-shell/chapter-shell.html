@@ -1,0 +1,38 @@
+<article class="page-chapitre">
+  <header class="en-tete-chapitre">
+    <a routerLink="/" class="lien-sommaire">← Retour au sommaire</a>
+    <p class="numero-chapitre">Chapitre {{ numeral() }}</p>
+    <h1>{{ chapitre()?.titre }}</h1>
+    <p class="sous-titre-chapitre">{{ chapitre()?.sousTitre }}</p>
+    <div class="filet-decoratif" aria-hidden="true"></div>
+  </header>
+
+  <div class="contenu-chapitre">
+    <ng-content />
+  </div>
+
+  <nav class="nav-chapitre" aria-label="Navigation entre les chapitres">
+    @if (precedent(); as precedent) {
+      <a [routerLink]="['/chapitre', precedent.slug]" class="nav-lien nav-precedent">
+        <span class="nav-etiquette">Chapitre précédent</span>
+        <span class="nav-titre">{{ precedent.titre }}</span>
+      </a>
+    } @else {
+      <span class="nav-vide">Début du livre</span>
+    }
+
+    <a routerLink="/" class="nav-lien nav-accueil">
+      <span class="nav-etiquette">Retour</span>
+      <span class="nav-titre">Accueil</span>
+    </a>
+
+    @if (suivant(); as suivant) {
+      <a [routerLink]="['/chapitre', suivant.slug]" class="nav-lien nav-suivant">
+        <span class="nav-etiquette">Chapitre suivant</span>
+        <span class="nav-titre">{{ suivant.titre }}</span>
+      </a>
+    } @else {
+      <span class="nav-vide">Fin du livre — merci de votre lecture</span>
+    }
+  </nav>
+</article>

@@ -1,0 +1,174 @@
+.page-chapitre {
+  padding: 3.5rem 3.25rem 2.5rem;
+}
+
+/* ---- En-tête du chapitre ---- */
+.en-tete-chapitre {
+  text-align: center;
+}
+
+.lien-sommaire {
+  display: inline-block;
+  font-size: 0.85rem;
+  color: var(--encre-douce);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  margin-bottom: 2.25rem;
+}
+
+.lien-sommaire:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.numero-chapitre {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  color: var(--accent);
+  margin: 0 0 0.75rem;
+}
+
+.en-tete-chapitre h1 {
+  font-size: 2.4rem;
+  margin: 0 0 0.5rem;
+  color: var(--encre);
+}
+
+.sous-titre-chapitre {
+  font-style: italic;
+  color: var(--encre-douce);
+  margin: 0;
+}
+
+.filet-decoratif {
+  width: 90px;
+  height: 3px;
+  margin: 1.75rem auto 2.5rem;
+  background: linear-gradient(to right, transparent, var(--accent), transparent);
+  border-radius: 2px;
+}
+
+/* ---- Contenu du chapitre ---- */
+.contenu-chapitre {
+  font-size: 1.02rem;
+  line-height: 1.75;
+}
+
+/* Lettrine sur le premier paragraphe du chapitre, comme dans un livre */
+.contenu-chapitre > p:first-child::first-letter {
+  float: left;
+  font-size: 3.4em;
+  line-height: 0.85;
+  padding: 0.08em 0.12em 0 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.contenu-chapitre h2 {
+  font-size: 1.45rem;
+  margin: 2.5rem 0 0.9rem;
+  color: var(--encre);
+}
+
+.contenu-chapitre h2::before {
+  content: '§ ';
+  color: var(--accent);
+  font-weight: 400;
+}
+
+.contenu-chapitre ul,
+.contenu-chapitre ol {
+  padding-left: 1.4rem;
+}
+
+.contenu-chapitre li {
+  margin-bottom: 0.4rem;
+}
+
+/* ---- Navigation bas de page ---- */
+.nav-chapitre {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 1rem;
+  margin-top: 3.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--bordure);
+}
+
+.nav-lien {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  text-decoration: none;
+  color: var(--encre);
+  padding: 0.65rem 0.9rem;
+  border-radius: 8px;
+  border: 1px solid var(--bordure);
+  background: rgba(255, 255, 255, 0.45);
+  max-width: 46%;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.nav-lien:hover {
+  border-color: var(--accent);
+  background: #fffdf6;
+  transform: translateY(-2px);
+}
+
+.nav-suivant {
+  text-align: right;
+}
+
+.nav-accueil {
+  align-self: center;
+  text-align: center;
+}
+
+.nav-chapitre > * {
+  flex: 1 1 0;
+}
+
+.nav-etiquette {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+}
+
+.nav-titre {
+  font-weight: 600;
+}
+
+.nav-vide {
+  align-self: center;
+  font-style: italic;
+  color: var(--encre-douce);
+  font-size: 0.9rem;
+  max-width: 46%;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 640px) {
+  .page-chapitre {
+    padding: 2.25rem 1.5rem 1.75rem;
+  }
+
+  .en-tete-chapitre h1 {
+    font-size: 1.8rem;
+  }
+
+  .nav-chapitre {
+    flex-direction: column;
+  }
+
+  .nav-lien,
+  .nav-vide {
+    max-width: 100%;
+  }
+
+  .nav-suivant {
+    text-align: left;
+  }
+}

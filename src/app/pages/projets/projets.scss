@@ -1,0 +1,52 @@
+.grille-projets {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin: 2rem 0 0.5rem;
+}
+
+.carte-projet {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 1.25rem 1.35rem 1.1rem;
+  text-decoration: none;
+  color: var(--encre);
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid var(--bordure);
+  border-radius: 10px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.carte-projet:hover {
+  border-color: var(--accent);
+  box-shadow: 0 10px 24px rgba(43, 38, 32, 0.12);
+  transform: translateY(-3px);
+}
+
+.carte-projet h3 {
+  margin: 0;
+  font-size: 1.12rem;
+  line-height: 1.35;
+}
+
+.carte-projet p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--encre-douce);
+}
+
+.lire-projet {
+  margin-top: auto;
+  padding-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .grille-projets {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,145 @@
+.couverture {
+  padding: 4rem 3.25rem 2.75rem;
+  text-align: center;
+}
+
+/* ---- Photo de couverture ---- */
+.cadre-photo {
+  width: 168px;
+  height: 168px;
+  margin: 0 auto 1.75rem;
+  border-radius: 50%;
+  padding: 6px;
+  background: linear-gradient(135deg, var(--accent), #d9b98a);
+  box-shadow: 0 8px 20px rgba(43, 38, 32, 0.28);
+}
+
+.cadre-photo img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--papier);
+  display: block;
+}
+
+/* ---- Titre de couverture ---- */
+.titre-couverture {
+  font-size: 2.6rem;
+  margin: 0 0 0.4rem;
+  letter-spacing: 0.01em;
+}
+
+.metier {
+  font-style: italic;
+  color: var(--accent);
+  margin: 0 0 1.5rem;
+  font-size: 1.05rem;
+}
+
+.intro {
+  max-width: 46ch;
+  margin: 0 auto 3rem;
+  line-height: 1.75;
+  color: var(--encre-douce);
+  font-size: 1.02rem;
+}
+
+/* ---- Sommaire ---- */
+.sommaire {
+  text-align: left;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.sommaire h2 {
+  text-align: center;
+  font-size: 1.15rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--encre-douce);
+  font-weight: 400;
+  margin: 0 0 1.5rem;
+}
+
+.sommaire ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sommaire li + li {
+  border-top: 1px solid var(--bordure);
+}
+
+.lien-chapitre {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas:
+    'numero titre fleche'
+    'numero resume fleche';
+  column-gap: 0.9rem;
+  row-gap: 0.15rem;
+  align-items: baseline;
+  padding: 0.95rem 0.5rem;
+  text-decoration: none;
+  color: var(--encre);
+  transition: background 0.2s ease, padding-left 0.2s ease;
+}
+
+.lien-chapitre:hover {
+  background: rgba(255, 255, 255, 0.55);
+  padding-left: 0.9rem;
+}
+
+.sommaire-numero {
+  grid-area: numero;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.sommaire-titre {
+  grid-area: titre;
+  font-weight: 700;
+  font-size: 1.08rem;
+}
+
+.sommaire-resume {
+  grid-area: resume;
+  font-size: 0.88rem;
+  color: var(--encre-douce);
+  line-height: 1.5;
+}
+
+.lien-chapitre::after {
+  content: '→';
+  grid-area: fleche;
+  color: var(--accent);
+  font-size: 1.1rem;
+  align-self: center;
+}
+
+.pied-couverture {
+  margin-top: 2.5rem;
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--encre-douce);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 640px) {
+  .couverture {
+    padding: 2.5rem 1.5rem 2rem;
+  }
+
+  .titre-couverture {
+    font-size: 2rem;
+  }
+
+  .sommaire-resume {
+    display: none;
+  }
+}

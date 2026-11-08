@@ -1,59 +1,67 @@
-# Portfolio
+# Portfolio — Randy Sapa
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.29.
+Portfolio de développeur sous forme de **livre** (Angular 21 + SSR) : le recruteur
+arrive sur la couverture, parcourt le sommaire, puis lit le site chapitre par chapitre,
+avec une navigation « précédent / accueil / suivant » en bas de chaque page.
 
-## Development server
+## Chapitres
 
-To start a local development server, run:
+| Chapitre | Route | Contenu |
+| --- | --- | --- |
+| Couverture | `/` | Photo, présentation et sommaire cliquable |
+| I. Qui suis-je ? | `/chapitre/description` | Parcours, qualités humaines, passions |
+| II. Mes compétences | `/chapitre/competences` | Stack technique par famille |
+| III. Mes projets | `/chapitre/projets` | Grille de projets, chacun avec sa page `/projet/:slug` |
+| IV. Mes loisirs | `/chapitre/loisirs` | Sport, jeux vidéo, analyse sportive... |
+| V. Contact | `/chapitre/contact` | E-mail, GitHub, LinkedIn |
 
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Commandes
 
 ```bash
-ng generate --help
+npm install
+npm start                      # développement sur http://localhost:4200
+npm test                       # tests unitaires (Vitest)
+npm run build                  # build + prérendu de toutes les pages dans dist/Portfolio
+npm run serve:ssr:Portfolio    # sert le build SSR sur http://localhost:4000
 ```
 
-## Building
+## Structure
 
-To build the project run:
-
-```bash
-ng build
+```
+src/app/
+├── app.routes.ts              # routes du livre
+├── app.routes.server.ts       # prérendu (dont une page par projet)
+├── models/book.ts             # types Chapitre et Projet
+├── services/book.service.ts   # LE CONTENU DU LIVRE (chapitres + projets)
+├── shared/chapter-shell/      # gabarit commun : en-tête + navigation page à page
+└── pages/
+    ├── home/                  # couverture + sommaire
+    ├── description/           # chapitre I
+    ├── competences/           # chapitre II
+    ├── projets/               # chapitre III (liste)
+    ├── projet-detail/         # page dédiée à chaque projet
+    ├── loisirs/               # chapitre IV
+    └── contact/               # chapitre V
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Personnaliser
 
-## Running unit tests
+Tout le contenu des chapitres et des projets est centralisé dans
+`src/app/services/book.service.ts`.
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+- **Ajouter un projet** : ajoutez un objet dans `projets` avec un `slug` unique. Sa carte,
+  sa page `/projet/:slug`, sa navigation et son prérendu sont générés automatiquement.
+- **Ajouter un chapitre** : ajoutez un objet dans `chapitres`, créez un composant dans
+  `pages/`, ajoutez sa route dans `app.routes.ts` et enveloppez son contenu dans
+  `<app-chapter-shell slug="...">...</app-chapter-shell>`. La navigation précédent/suivant
+  suit l'ordre du tableau.
+- **Photo** : remplacez `public/photo.svg` par votre photo et mettez à jour
+  `<img src="photo.svg">` dans `src/app/pages/home/home.html`.
+- **Liens de contact** : à compléter dans `src/app/pages/contact/contact.html`.
 
-```bash
-ng test
-```
+## Déploiement
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+`npm run build` prérend chaque page en HTML statique dans `dist/Portfolio/browser`.
+Ce dossier peut être publié tel quel sur un hébergement statique (Netlify, Vercel,
+Firebase Hosting, GitHub Pages...). Pour GitHub Pages dans un sous-dossier, construisez avec
+`npx ng build --base-href /Portfolio/`.

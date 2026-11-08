@@ -1,0 +1,63 @@
+@if (projet(); as projet) {
+  <article class="page-projet">
+    <a routerLink="/chapitre/projets" class="lien-retour">← Chapitre III · Mes projets</a>
+
+    <header class="en-tete-projet">
+      <span class="etiquette" [class.professionnel]="projet.contexte === 'Professionnel'" [class.personnel]="projet.contexte === 'Personnel'">
+        {{ projet.contexte }}
+      </span>
+      <h1>{{ projet.titre }}</h1>
+      <p class="periode">{{ projet.periode }}</p>
+      <ul class="puces">
+        @for (techno of projet.stack; track techno) {
+          <li>{{ techno }}</li>
+        }
+      </ul>
+      <div class="filet-decoratif" aria-hidden="true"></div>
+    </header>
+
+    <div class="contenu-projet">
+      @for (paragraphe of projet.description; track $index) {
+        <p>{{ paragraphe }}</p>
+      }
+
+      <h2>Points clés</h2>
+      <ul class="points-cles">
+        @for (point of projet.points; track $index) {
+          <li>{{ point }}</li>
+        }
+      </ul>
+    </div>
+
+    <nav class="nav-projet" aria-label="Navigation entre les projets">
+      @if (precedent(); as precedent) {
+        <a [routerLink]="['/projet', precedent.slug]" class="nav-lien nav-precedent">
+          <span class="nav-etiquette">Projet précédent</span>
+          <span class="nav-titre">{{ precedent.titre }}</span>
+        </a>
+      } @else {
+        <span class="nav-vide">Premier projet</span>
+      }
+
+      <a routerLink="/chapitre/projets" class="nav-lien nav-retour">
+        <span class="nav-etiquette">Retour</span>
+        <span class="nav-titre">Tous les projets</span>
+      </a>
+
+      @if (suivant(); as suivant) {
+        <a [routerLink]="['/projet', suivant.slug]" class="nav-lien nav-suivant">
+          <span class="nav-etiquette">Projet suivant</span>
+          <span class="nav-titre">{{ suivant.titre }}</span>
+        </a>
+      } @else {
+        <span class="nav-vide">Dernier projet</span>
+      }
+    </nav>
+  </article>
+} @else {
+  <article class="page-projet introuvable">
+    <h1>Projet introuvable</h1>
+    <p>Ce projet n'existe pas (ou plus). Retournons au chapitre des projets.</p>
+    <p><a routerLink="/chapitre/projets" class="lien-retour">← Chapitre III · Mes projets</a></p>
+  </article>
+}
