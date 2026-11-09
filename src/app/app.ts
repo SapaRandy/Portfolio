@@ -1,4 +1,5 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, DOCUMENT, PLATFORM_ID, afterNextRender, computed, inject, signal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { filter, map } from 'rxjs';
@@ -29,6 +30,50 @@ export class App {
     ),
     { initialValue: this.router.url },
   );
+
+  /**
+   * Couverture avant : le livre est fermé quand on arrive sur l'accueil,
+   * puis il s'ouvre tout seul sur le sommaire. On ne la montre pas quand
+   * on arrive directement sur un chapitre (lien partagé).
+   */
+  readonly etatCouverture = signal<'fermee' | 'ouverture' | 'retiree'>('fermee');
+  readonly couvertureVisible = computed(
+    () => this.etatCouverture() !== 'retiree' && this.url() === '/',
+  );
+
+  /** Temps pendant lequel le livre reste fermé avant de s'ouvrir. */
+  private readonly delaiAvantOuverture = 1300;
+
+  constructor() {
+    const document = inject(DOCUMENT);
+    if (isPlatformBrowser(inject(PLATFORM_ID))) {
+      const chemin = document.location.pathname.replace(/\/+$/, '');
+      if (chemin !== '') {
+        this.etatCouverture.set('retiree');
+      }
+    }
+
+    afterNextRender(() => {
+      if (this.etatCouverture() !== 'fermee') {
+        return;
+      }
+      setTimeout(() => this.ouvrirLeLivre(), this.delaiAvantOuverture);
+      // Filet de sécurité si l'événement de fin d'animation ne se déclenche pas.
+      setTimeout(() => this.etatCouverture.set('retiree'), this.delaiAvantOuverture + 4000);
+    });
+  }
+
+  ouvrirLeLivre(): void {
+    if (this.etatCouverture() === 'fermee') {
+      this.etatCouverture.set('ouverture');
+    }
+  }
+
+  couvertureOuverte(event: AnimationEvent): void {
+    if (event.animationName === 'couverture-disparait') {
+      this.etatCouverture.set('retiree');
+    }
+  }
 
   readonly total = this.book.ordreDeLecture.length;
   readonly index = computed(() => this.book.indexDeLecture(this.url()));

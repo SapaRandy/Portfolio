@@ -19,6 +19,9 @@ avec une navigation « précédent / accueil / suivant » en bas de chaque page.
 
 - **Reliure** : couverture en cuir, dos relié, papier crème avec ombre de gouttière,
   titre courant en haut de page et numéro de page en bas.
+- **Livre fermé à l'arrivée** : sur l'accueil, le livre apparaît fermé, avec « Portfolio de Randy »
+  doré sur la couverture en cuir, puis il s'ouvre tout seul sur le sommaire (un clic l'ouvre tout
+  de suite). Un lien direct vers un chapitre arrive directement sur la page, sans couverture.
 - **Tranche des pages restantes** : à droite et en bas, l'épaisseur des pages diminue à
   chaque page lue. Elle est maximale sur le sommaire et disparaît sur la dernière page
   (Contact). L'ordre de lecture est défini par `ordreDeLecture` dans `BookService`.
