@@ -1,0 +1,49 @@
+<app-chapter-shell slug="experiences">
+  <p>
+    J'ai appris mon métier sur le terrain : trois années d'alternance, dans deux entreprises
+    et sur deux écosystèmes différents. Voici ces expériences, de la plus récente à la plus
+    ancienne.
+  </p>
+
+  <ol class="frise">
+    @for (experience of experiences; track experience.entreprise) {
+      <li class="etape">
+        <div class="etape-date">
+          <span class="etape-periode">{{ experience.periode }}</span>
+          <span class="etape-duree">{{ experience.duree }}</span>
+        </div>
+
+        <article class="etape-contenu">
+          <h2>{{ experience.entreprise }}</h2>
+          <p class="etape-poste">{{ experience.poste }}</p>
+          <p>{{ experience.resume }}</p>
+
+          <h3>Missions principales</h3>
+          <ul>
+            @for (mission of experience.missions; track mission) {
+              <li>{{ mission }}</li>
+            }
+          </ul>
+
+          <ul class="puces" aria-label="Technologies utilisées">
+            @for (techno of experience.stack; track techno) {
+              <li>{{ techno }}</li>
+            }
+          </ul>
+
+          <p class="etape-projets">
+            À lire dans le chapitre IV :
+            @for (slug of experience.projets; track slug; let dernier = $last) {
+              <a [routerLink]="['/projet', slug]">{{ titreProjet(slug) }}</a>@if (!dernier) {<span>, </span>}
+            }
+          </p>
+        </article>
+      </li>
+    }
+  </ol>
+
+  <p>
+    Ces années m'ont appris à travailler au plus près des équipes métier, à soigner la
+    qualité du code par les tests, et à livrer des outils réellement utilisés au quotidien.
+  </p>
+</app-chapter-shell>

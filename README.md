@@ -10,10 +10,11 @@ avec une navigation « précédent / accueil / suivant » en bas de chaque page.
 | --- | --- | --- |
 | Couverture | `/` | Photo, présentation et sommaire cliquable |
 | I. Qui suis-je ? | `/chapitre/description` | Parcours, qualités humaines, passions |
-| II. Mes compétences | `/chapitre/competences` | Stack technique par famille |
-| III. Mes projets | `/chapitre/projets` | Grille de projets, chacun avec sa page `/projet/:slug` |
-| IV. Mes loisirs | `/chapitre/loisirs` | Sport, jeux vidéo, analyse sportive... |
-| V. Contact | `/chapitre/contact` | E-mail, GitHub, LinkedIn |
+| II. Mes expériences | `/chapitre/experiences` | Frise des alternances (Grant Thornton, Sygecom) |
+| III. Mes compétences | `/chapitre/competences` | Stack technique par famille |
+| IV. Mes projets | `/chapitre/projets` | Grille de projets, chacun avec sa page `/projet/:slug` |
+| V. Mes loisirs | `/chapitre/loisirs` | Sport, jeux vidéo, analyse sportive... |
+| VI. Contact | `/chapitre/contact` | E-mail, GitHub, LinkedIn |
 
 ## Effets « livre »
 
@@ -53,11 +54,12 @@ src/app/
 └── pages/
     ├── home/                  # couverture + sommaire
     ├── description/           # chapitre I
-    ├── competences/           # chapitre II
-    ├── projets/               # chapitre III (liste)
+    ├── experiences/           # chapitre II
+    ├── competences/           # chapitre III
+    ├── projets/               # chapitre IV (liste)
     ├── projet-detail/         # page dédiée à chaque projet
-    ├── loisirs/               # chapitre IV
-    └── contact/               # chapitre V
+    ├── loisirs/               # chapitre V
+    └── contact/               # chapitre VI
 ```
 
 ## Personnaliser

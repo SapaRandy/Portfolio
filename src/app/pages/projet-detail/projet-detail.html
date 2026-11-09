@@ -1,6 +1,6 @@
 @if (projet(); as projet) {
   <article class="page-projet">
-    <a routerLink="/chapitre/projets" class="lien-retour">← Chapitre III · Mes projets</a>
+    <a routerLink="/chapitre/projets" class="lien-retour">← Chapitre IV · Mes projets</a>
 
     <header class="en-tete-projet">
       <span class="etiquette" [class.professionnel]="projet.contexte === 'Professionnel'" [class.personnel]="projet.contexte === 'Personnel'">
@@ -58,6 +58,6 @@
   <article class="page-projet introuvable">
     <h1>Projet introuvable</h1>
     <p>Ce projet n'existe pas (ou plus). Retournons au chapitre des projets.</p>
-    <p><a routerLink="/chapitre/projets" class="lien-retour">← Chapitre III · Mes projets</a></p>
+    <p><a routerLink="/chapitre/projets" class="lien-retour">← Chapitre IV · Mes projets</a></p>
   </article>
 }

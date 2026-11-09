@@ -19,8 +19,16 @@ export class BookService {
         'Ma présentation : formation, expériences en alternance, qualités humaines et ce qui me motive au quotidien.',
     },
     {
-      slug: 'competences',
+      slug: 'experiences',
       numero: 2,
+      titre: 'Mes expériences',
+      sousTitre: 'Trois années d\'alternance en entreprise',
+      resume:
+        'Mon parcours professionnel chez Sygecom puis Grant Thornton : missions, technologies et ce que j\'en ai retenu.',
+    },
+    {
+      slug: 'competences',
+      numero: 3,
       titre: 'Mes compétences',
       sousTitre: 'La boîte à outils d\'un développeur full stack',
       resume:
@@ -28,7 +36,7 @@ export class BookService {
     },
     {
       slug: 'projets',
-      numero: 3,
+      numero: 4,
       titre: 'Mes projets',
       sousTitre: 'Des réalisations professionnelles et personnelles',
       resume:
@@ -36,7 +44,7 @@ export class BookService {
     },
     {
       slug: 'loisirs',
-      numero: 4,
+      numero: 5,
       titre: 'Mes loisirs',
       sousTitre: 'En dehors du code',
       resume:
@@ -44,7 +52,7 @@ export class BookService {
     },
     {
       slug: 'contact',
-      numero: 5,
+      numero: 6,
       titre: 'Contact',
       sousTitre: 'Envie d\'échanger ?',
       resume:

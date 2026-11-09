@@ -1,0 +1,119 @@
+/* Frise chronologique, dessinée à l'encre dans la marge */
+.frise {
+  list-style: none;
+  margin: 2rem 0;
+  padding: 0;
+}
+
+.etape {
+  position: relative;
+  display: grid;
+  grid-template-columns: 7.5rem 1fr;
+  gap: 1.75rem;
+  padding-bottom: 2.25rem;
+}
+
+/* le trait vertical de la frise */
+.etape::before {
+  content: '';
+  position: absolute;
+  top: 0.4rem;
+  bottom: 0;
+  left: calc(7.5rem + 0.85rem);
+  border-left: 1px solid var(--bordure);
+}
+
+.etape:last-child::before {
+  bottom: 2.25rem;
+}
+
+/* la pastille de chaque étape */
+.etape::after {
+  content: '';
+  position: absolute;
+  top: 0.4rem;
+  left: calc(7.5rem + 0.85rem - 6px);
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--papier);
+  border: 2px solid var(--accent);
+}
+
+.etape-date {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  padding-top: 0.15rem;
+}
+
+.etape-periode {
+  font-weight: 700;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.etape-duree {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--encre-douce);
+}
+
+.etape-contenu {
+  padding-left: 0.75rem;
+}
+
+.etape-contenu h2 {
+  margin: 0;
+}
+
+.etape-contenu h3 {
+  margin: 1.25rem 0 0.5rem;
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--encre-douce);
+}
+
+.etape-poste {
+  margin: 0.25rem 0 0.75rem;
+  font-style: italic;
+  color: var(--accent);
+}
+
+.etape-projets {
+  font-size: 0.95rem;
+  color: var(--encre-douce);
+}
+
+.etape-projets a {
+  color: var(--accent);
+}
+
+@media (max-width: 640px) {
+  .etape {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    padding-left: 1.5rem;
+  }
+
+  .etape::before {
+    left: 0.3rem;
+  }
+
+  .etape::after {
+    left: calc(0.3rem - 6px);
+  }
+
+  .etape-date {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 0.6rem;
+    text-align: left;
+  }
+
+  .etape-contenu {
+    padding-left: 0;
+  }
+}

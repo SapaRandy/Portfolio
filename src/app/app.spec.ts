@@ -35,7 +35,7 @@ describe('BookService', () => {
   });
 
   it('numérote les chapitres dans l ordre', () => {
-    expect(book.chapitres.map((c) => c.numero)).toEqual([1, 2, 3, 4, 5]);
+    expect(book.chapitres.map((c) => c.numero)).toEqual([1, 2, 3, 4, 5, 6]);
   });
 });
 
@@ -47,7 +47,7 @@ describe('Ordre de lecture', () => {
     expect(book.ordreDeLecture.at(-1)).toBe('/chapitre/contact');
   });
 
-  it('insère les pages projets dans le chapitre III', () => {
+  it('insère les pages projets dans le chapitre IV', () => {
     const iProjets = book.indexDeLecture('/chapitre/projets');
     expect(book.indexDeLecture('/projet/' + book.projets[0].slug)).toBe(iProjets + 1);
   });
