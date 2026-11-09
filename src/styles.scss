@@ -368,18 +368,10 @@ html[data-sens='arriere']::view-transition-old(feuille) {
    Couverture avant : livre fermé à l'arrivée, qui s'ouvre
    ============================================================ */
 
-/* Tant que le livre est fermé, il tient dans l'écran */
+/* La couverture a exactement la taille du livre ouvert : rien ne bouge
+   quand elle s'ouvre. Seul le titre reste centré dans l'écran. */
 .bureau {
   overflow-x: clip;
-}
-
-.livre-ferme .feuille {
-  max-height: calc(100svh - 8rem);
-  overflow: hidden;
-}
-
-.feuille {
-  transition: max-height 0.6s ease;
 }
 
 .couverture-avant {
@@ -447,18 +439,25 @@ html[data-sens='arriere']::view-transition-old(feuille) {
 .cadre-dore {
   position: absolute;
   inset: 26px 26px 26px 40px;
-  max-height: calc(100svh - 8rem);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1.1rem;
+  display: block;
   border: 2px solid rgba(201, 164, 92, 0.75);
   outline: 1px solid rgba(201, 164, 92, 0.45);
   outline-offset: -9px;
   border-radius: 3px;
   text-align: center;
-  padding: 2rem 1.5rem;
+  padding: 0 1.5rem;
+}
+
+/* Le titre reste au centre de l'écran, même si le livre est plus haut que lui */
+.contenu-couverture {
+  position: sticky;
+  top: 0;
+  height: min(100%, calc(100svh - 6rem));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.1rem;
 }
 
 .titre-dore,
@@ -563,7 +562,7 @@ html[data-sens='arriere']::view-transition-old(feuille) {
 @media (max-width: 640px) {
   .cadre-dore {
     inset: 16px 14px 16px 26px;
-    padding: 1.5rem 0.75rem;
+    padding: 0 0.75rem;
   }
 }
 
