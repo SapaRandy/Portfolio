@@ -47,8 +47,13 @@ export class App {
   constructor() {
     const document = inject(DOCUMENT);
     if (isPlatformBrowser(inject(PLATFORM_ID))) {
-      const chemin = document.location.pathname.replace(/\/+$/, '');
-      if (chemin !== '') {
+      // Le site peut être publié dans un sous-dossier (GitHub Pages : /Portfolio/).
+      // On compare donc le chemin à l'adresse de base, et non à « / ».
+      const nettoyer = (chemin: string) =>
+        chemin.replace(/index\.html$/, '').replace(/\/+$/, '');
+      const base = nettoyer(new URL(document.baseURI).pathname);
+      const chemin = nettoyer(document.location.pathname);
+      if (chemin !== base) {
         this.etatCouverture.set('retiree');
       }
     }
