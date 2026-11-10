@@ -28,6 +28,21 @@ export class Experiences {
 
   readonly experiences: Experience[] = [
     {
+      entreprise: 'Sygecom',
+      periode: '2023 – 2024',
+      duree: '1 an',
+      poste: 'Développeur full stack en alternance',
+      resume:
+        'Ma première expérience en entreprise : le développement d\'une application de gestion client, du back-end à l\'interface, qui m\'a donné les bases du travail en équipe sur un produit réel.',
+      missions: [
+        'Développement d\'une application de gestion client',
+        'Conception et exposition d\'une API REST en Python/Django',
+        'Réalisation de l\'interface utilisateur en React',
+      ],
+      stack: ['Python', 'Django', 'React', 'API REST'],
+      projets: ['gestion-client-sygecom'],
+    },
+    {
       entreprise: 'Grant Thornton',
       periode: '2024 – 2026',
       duree: '2 ans',
@@ -42,21 +57,6 @@ export class Experiences {
       ],
       stack: ['Java', 'Spring Boot', 'Angular', 'Azure AD', 'Microsoft Graph', 'JUnit', 'Mockito', 'Docker'],
       projets: ['automatisation-comptable', 'import-ecritures-excel', 'transferts-sftp-sharepoint'],
-    },
-    {
-      entreprise: 'Sygecom',
-      periode: '2023 – 2024',
-      duree: '1 an',
-      poste: 'Développeur full stack en alternance',
-      resume:
-        'Ma première expérience en entreprise : le développement d\'une application de gestion client, du back-end à l\'interface, qui m\'a donné les bases du travail en équipe sur un produit réel.',
-      missions: [
-        'Développement d\'une application de gestion client',
-        'Conception et exposition d\'une API REST en Python/Django',
-        'Réalisation de l\'interface utilisateur en React',
-      ],
-      stack: ['Python', 'Django', 'React', 'API REST'],
-      projets: ['gestion-client-sygecom'],
     },
   ];
 
